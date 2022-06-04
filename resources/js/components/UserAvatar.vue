@@ -1,6 +1,8 @@
 <script setup>
 import { useMainStore } from '@/stores/main'
 import { computed } from 'vue'
+import { usePage } from '@inertiajs/inertia-vue3'
+
 
 const props = defineProps({
   username: {
@@ -19,7 +21,7 @@ const lightBgStyle = computed(() => mainStore.lightBgStyle)
 
 const avatar = computed(() => props.username
   ? `https://avatars.dicebear.com/${props.api}/${props.username.replace(/[^a-z0-9]+/i, '-')}.svg`
-  : mainStore.userAvatar)
+  : usePage().props.value.user.profile_photo_url)
 
 const name = computed(() => props.username ? props.username : mainStore.userName)
 </script>
