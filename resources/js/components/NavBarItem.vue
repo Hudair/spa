@@ -1,13 +1,15 @@
 <script setup>
 import { useMainStore } from '@/stores/main'
 import { computed } from 'vue'
+import { Link } from '@inertiajs/inertia-vue3'
+
 
 const props = defineProps({
   href: {
     type: String,
     default: null
   },
-  to: {
+    routeName: {
     type: String,
     default: null
   },
@@ -30,8 +32,8 @@ const is = computed(() => {
     return 'a'
   }
 
-  if (props.to) {
-    return 'router-link'
+  if (props.routeName) {
+    return Link
   }
 
   return 'div'
@@ -75,18 +77,16 @@ const componentClass = computed(() => {
   return base
 })
 
-const activeClass = computed(() => {
-  return is.value === 'router-link' ? props.activeColor : null
-})
+const activeClass = computed(
+  () => props.routeName && route().current(props.routeName) ? props.activeColor : null
+)
 </script>
 
 <template>
   <component
-    :is="is"
-    :class="componentClass"
-    :to="to"
-    :href="href"
-    :exact-active-class="activeClass"
+   :is="is"
+    :class="[componentClass, activeClass]"
+    :href="routeName ? route(routeName) : href"
   >
     <slot />
   </component>
