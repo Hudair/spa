@@ -34,7 +34,11 @@ const hasDropdown = computed(() => !!props.item.menu)
 
 const dropdownIcon = computed(() => isDropdownActive.value ? mdiMinus : mdiPlus)
 
-const itemTo = computed(() => props.item.to || null)
+const activeInactiveStyle = computed(
+  () => props.item.route && route().current(props.item.route)
+    ? asideMenuItemActiveStyle.value
+    : asideMenuItemInactiveStyle.value
+)
 
 const itemHref = computed(() => props.item.href || null)
 
@@ -53,8 +57,6 @@ const menuClick = event => {
   <li>
     <component
       :is="componentIs"
-      v-slot="vSlot"
-      :to="itemTo"
       :href="itemHref"
       :target="itemTarget"
       class="flex cursor-pointer dark:hover:bg-gray-700/50"
@@ -70,13 +72,13 @@ const menuClick = event => {
       />
       <span
         class="grow"
-        :class="[ vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : asideMenuItemInactiveStyle ]"
+       :class="activeInactiveStyle"
       >{{ item.label }}</span>
       <icon
         v-if="hasDropdown"
         :path="dropdownIcon"
         class="flex-none"
-        :class="[ vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : asideMenuItemInactiveStyle ]"
+        :class="activeInactiveStyle"
         w="w-12"
       />
     </component>
