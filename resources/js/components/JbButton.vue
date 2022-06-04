@@ -21,7 +21,6 @@ const props = defineProps({
     type: String,
     default: null
   },
-  to: {
    routeName: {
     type: String,
     default: null
