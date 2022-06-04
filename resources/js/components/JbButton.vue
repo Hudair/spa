@@ -22,7 +22,8 @@ const props = defineProps({
     default: null
   },
   to: {
-    type: [String, Object],
+   routeName: {
+    type: String,
     default: null
   },
   type: {
@@ -48,8 +49,8 @@ const is = computed(() => {
     return props.as
   }
 
-  if (props.to) {
-    return 'router-link'
+  if (props.routeName) {
+    return Link
   }
 
   if (props.href) {
@@ -97,11 +98,10 @@ const componentClass = computed(() => {
 
 <template>
   <component
-    :is="is"
+     :is="is"
     :class="componentClass"
-    :href="href"
+    :href="routeName ? route(routeName) : href"
     :type="computedType"
-    :to="to"
     :target="target"
     :disabled="disabled"
   >
