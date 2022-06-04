@@ -24,6 +24,8 @@ import Divider from '@/components/Divider.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import Icon from '@/components/Icon.vue'
 import NavBarSearch from '@/components/NavBarSearch.vue'
+import { usePage } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
 
 const mainStore = useMainStore()
 
@@ -37,7 +39,7 @@ const isNavBarVisible = computed(() => !mainStore.isFullScreen)
 
 const isAsideMobileExpanded = computed(() => mainStore.isAsideMobileExpanded)
 
-const userName = computed(() => mainStore.userName)
+const userName = computed(() => usePage().props.value.user.name)
 
 const menuToggleMobileIcon = computed(() => isAsideMobileExpanded.value ? mdiBackburger : mdiForwardburger)
 
@@ -56,7 +58,7 @@ const menuOpenLg = () => {
 }
 
 const logout = () => {
-  //
+  Inertia.post(route('logout'))
 }
 </script>
 
