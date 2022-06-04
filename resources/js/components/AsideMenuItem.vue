@@ -18,11 +18,11 @@ const emit = defineEmits(['menu-click'])
 
 const mainStore = useMainStore()
 
-const asideMenuItemStyle = computed(() => mainStore.asideMenuItemStyle)
+const asideMenuItemStyle =  computed(() => props.item.route ? Link : 'a')
 
-const asideMenuItemActiveStyle = computed(() => mainStore.asideMenuItemActiveStyle)
+const asideMenuItemActiveStyle = computed(() => props.item.route ? route(props.item.route) : props.item.href)
 
-const asideMenuItemInactiveStyle = computed(() => mainStore.asideMenuItemInactiveStyle)
+const asideMenuItemInactiveStyle = computed(() => props.item.target ? props.item.target : null)
 
 const asideSubmenuListStyle = computed(() => mainStore.asideSubmenuListStyle)
 
