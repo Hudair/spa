@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { getButtonColor } from '@/colors.js'
 import Icon from '@/components/Icon.vue'
+import { Link } from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
   label: {
