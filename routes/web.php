@@ -36,3 +36,11 @@ Route::middleware([
 Route::get('/dashboard', function () {
     return Inertia::render('Home');
   })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Home');
+ })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard-2', function () {
+    return Inertia::render('Home2');
+ })->name('dashboard2');
